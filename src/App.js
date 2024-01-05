@@ -4,10 +4,27 @@ import { TodoList, Greeting } from "./components";
 const App = () => {
   const [dynamicMessage, setDynamicMessage] = useState('');
   const [tasks, setTasks] = useState([]);
-
+  const [copyofTasks, setCopy] = useState([]);
+ // const [completed, setCompleted] = useState([]);
+  const [removedTask, setRemovedTask] = useState([]);
+  
+  
   useEffect(() => {
     updateGreeting();
   }, [tasks]);
+
+ 
+  const handleUndo = () => {
+    if (copyofTasks.length > 0) {
+      const lastRemovedTask = copyofTasks.pop();
+      setTasks([...tasks, lastRemovedTask]);
+      setRemovedTask(lastRemovedTask);
+    } else{
+      setCopy([
+      ...copyofTasks,tasks.pop()
+      ])
+    }
+  };
 
   const updateGreeting = () => {
     const currentHour = new Date().getHours();
@@ -54,8 +71,14 @@ const App = () => {
         tasks={tasks}
         setTasks={setTasks}
       />
+       <button className='bg-deepblue hover:bg-[blue] text-white font-bold py-2 px-4 rounded mx-auto flex mt-2'
+        onClick={handleUndo}>
+          Undo
+        </button>
     </div>
   );
 };
+
+
 
 export default App;

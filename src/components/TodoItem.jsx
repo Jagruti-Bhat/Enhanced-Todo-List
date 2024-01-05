@@ -1,6 +1,7 @@
 import React from 'react';
 
 const TodoItem = ({ task, onToggleCompletion }) => {
+
   const completedStyle = {
     textDecoration: task.completed ? 'line-through' : 'none',
     color: task.completed ? 'gray' : 'inherit'
